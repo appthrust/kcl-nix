@@ -1,0 +1,54 @@
+name: Update flake.nix
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # 毎日 UTC 00:00 (日本時間 09:00) に実行
+  workflow_dispatch: # 手動トリガーも可能
+
+jobs:
+  update-flake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Nix
+        uses: cachix/install-nix-action@v20
+
+      - name: Update flake.nix
+        id: update_flake
+        run: python3 update_flake.py
+
+      - name: Show generated flake.nix
+        run: cat flake.nix
+
+      - name: Show git diff
+        run: git diff
+
+      - name: Create Pull Request
+        if: steps.update_flake.outputs.CONTENT_CHANGED == 'true'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: update flake.nix to KCL version ${{ steps.update_flake.outputs.KCL_VERSION }} and CLI version ${{ steps.update_flake.outputs.CLI_VERSION }}"
+          title: "Update flake.nix to KCL version ${{ steps.update_flake.outputs.KCL_VERSION }} and CLI version ${{ steps.update_flake.outputs.CLI_VERSION }}"
+          body: |
+            This PR updates the flake.nix file to use the latest KCL and CLI releases.
+
+            Changes:
+            - Updated KCL version to ${{ steps.update_flake.outputs.KCL_VERSION }}
+            - Updated CLI version to ${{ steps.update_flake.outputs.CLI_VERSION }}
+            - Updated SHA256 hashes for CLI and language server downloads
+
+            Generated flake.nix content:
+            ```nix
+            ${{ steps.update_flake.outputs.FLAKE_CONTENT }}
+            ```
+
+            Git diff:
+            ```diff
+            ${{ steps.git_diff.outputs.diff }}
+            ```
+
+            Please review and merge if everything looks correct.
+          branch: update-flake-nix
+          delete-branch: true
