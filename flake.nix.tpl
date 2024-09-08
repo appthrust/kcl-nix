@@ -16,20 +16,20 @@
           else if system == "aarch64-linux" then "linux-arm64"
           else if system == "x86_64-darwin" then "darwin-amd64"
           else if system == "aarch64-darwin" then "darwin-arm64"
-          else throw "Unsupported system: $${system}";
+          else throw "Unsupported system: ${system}";
 
         cli = pkgs.stdenv.mkDerivation rec {
           pname = "kcl-cli";
-          version = "$cli_version";
+          version = "{{ cli_version }}";
 
           src = pkgs.fetchurl {
-            url = "https://github.com/kcl-lang/cli/releases/download/v$${version}/kcl-v$${version}-$${getArch system}.tar.gz";
+            url = "https://github.com/kcl-lang/cli/releases/download/v${version}/kcl-v${version}-${getArch system}.tar.gz";
             sha256 = {
-              x86_64-linux = "$cli_hash_x86_64_linux";
-              aarch64-linux = "$cli_hash_aarch64_linux";
-              x86_64-darwin = "$cli_hash_x86_64_darwin";
-              aarch64-darwin = "$cli_hash_aarch64_darwin";
-            }.$${system};
+              x86_64-linux = "{{ cli_hash_x86_64_linux }}";
+              aarch64-linux = "{{ cli_hash_aarch64_linux }}";
+              x86_64-darwin = "{{ cli_hash_x86_64_darwin }}";
+              aarch64-darwin = "{{ cli_hash_aarch64_darwin }}";
+            }.${system};
           };
 
           dontUnpack = true;
@@ -47,16 +47,16 @@
 
         language-server = pkgs.stdenv.mkDerivation rec {
           pname = "kcl-language-server";
-          version = "$kcl_version";
+          version = "{{ kcl_version }}";
 
           src = pkgs.fetchurl {
-            url = "https://github.com/kcl-lang/kcl/releases/download/v$${version}/kclvm-v$${version}-$${getArch system}.tar.gz";
+            url = "https://github.com/kcl-lang/kcl/releases/download/v${version}/kclvm-v${version}-${getArch system}.tar.gz";
             sha256 = {
-              x86_64-linux = "$language_server_hash_x86_64_linux";
-              aarch64-linux = "$language_server_hash_aarch64_linux";
-              x86_64-darwin = "$language_server_hash_x86_64_darwin";
-              aarch64-darwin = "$language_server_hash_aarch64_darwin";
-            }.$${system};
+              x86_64-linux = "{{ language_server_hash_x86_64_linux }}";
+              aarch64-linux = "{{ language_server_hash_aarch64_linux }}";
+              x86_64-darwin = "{{ language_server_hash_x86_64_darwin }}";
+              aarch64-darwin = "{{ language_server_hash_aarch64_darwin }}";
+            }.${system};
           };
 
           installPhase = ''
