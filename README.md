@@ -54,13 +54,21 @@ nix develop
 - `kcl`: The KCL Command Line Interface
 - `kcl-language-server`: The KCL Language Server
 
-## Versioning
+## Automated Updates
 
-This flake currently provides KCL tools version 0.10.0-rc.1. To update to a newer version, modify the `version` and `sha256` values in the `flake.nix` file.
+This repository includes a GitHub Actions workflow that automatically checks for new KCL releases daily. When a new version is available, it updates the `flake.nix` file using a template (`flake.nix.tpl`) and a Python script (`update_flake.py`), then creates a pull request with the changes. This ensures that the flake always provides the latest KCL tools.
+
+The `update_flake.py` script handles fetching the latest KCL version, calculating hashes for different architectures, and generating the updated `flake.nix` file.
+
+### Contributing to flake.nix
+
+The `flake.nix` file is automatically generated from the `flake.nix.tpl` template. If you need to make changes to the flake configuration, please modify the template file instead of directly editing `flake.nix`. The automated update process will use your changes in the template to generate the new `flake.nix` file.
+
+If you need to modify the update process itself, you can edit the `update_flake.py` script.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a Pull Request. Remember to modify `flake.nix.tpl` instead of `flake.nix` when making changes to the flake configuration.
 
 ## License
 
