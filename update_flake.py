@@ -25,10 +25,12 @@ def generate_flake():
 
     kcl_version = fetch_latest_release("kcl")
     cli_version = fetch_latest_release("cli")
+    kubectl_kcl_version = fetch_latest_release("kubectl-kcl")
 
     substitutions = {
         'kcl_version': kcl_version,
         'cli_version': cli_version,
+        'kubectl_kcl_version': kubectl_kcl_version,
         'cli_hash_x86_64_linux': calculate_hash(f"https://github.com/kcl-lang/cli/releases/download/v{cli_version}/kcl-v{cli_version}-linux-amd64.tar.gz"),
         'cli_hash_aarch64_linux': calculate_hash(f"https://github.com/kcl-lang/cli/releases/download/v{cli_version}/kcl-v{cli_version}-linux-arm64.tar.gz"),
         'cli_hash_x86_64_darwin': calculate_hash(f"https://github.com/kcl-lang/cli/releases/download/v{cli_version}/kcl-v{cli_version}-darwin-amd64.tar.gz"),
@@ -37,6 +39,10 @@ def generate_flake():
         'language_server_hash_aarch64_linux': calculate_hash(f"https://github.com/kcl-lang/kcl/releases/download/v{kcl_version}/kclvm-v{kcl_version}-linux-arm64.tar.gz"),
         'language_server_hash_x86_64_darwin': calculate_hash(f"https://github.com/kcl-lang/kcl/releases/download/v{kcl_version}/kclvm-v{kcl_version}-darwin-amd64.tar.gz"),
         'language_server_hash_aarch64_darwin': calculate_hash(f"https://github.com/kcl-lang/kcl/releases/download/v{kcl_version}/kclvm-v{kcl_version}-darwin-arm64.tar.gz"),
+        'kubectl_kcl_hash_x86_64_linux': calculate_hash(f"https://github.com/kcl-lang/kubectl-kcl/releases/download/v{kubectl_kcl_version}/kubectl-kcl-linux-amd64.tgz"),
+        'kubectl_kcl_hash_aarch64_linux': calculate_hash(f"https://github.com/kcl-lang/kubectl-kcl/releases/download/v{kubectl_kcl_version}/kubectl-kcl-linux-arm64.tgz"),
+        'kubectl_kcl_hash_x86_64_darwin': calculate_hash(f"https://github.com/kcl-lang/kubectl-kcl/releases/download/v{kubectl_kcl_version}/kubectl-kcl-macos-amd64.tgz"),
+        'kubectl_kcl_hash_aarch64_darwin': calculate_hash(f"https://github.com/kcl-lang/kubectl-kcl/releases/download/v{kubectl_kcl_version}/kubectl-kcl-macos-arm64.tgz"),
     }
 
     for key, value in substitutions.items():
@@ -58,12 +64,13 @@ def generate_flake():
     with open('flake.nix', 'w') as f:
         f.write(new_content)
 
-    print(f"flake.nix has been generated successfully for KCL version {kcl_version} and CLI version {cli_version}.")
+    print(f"flake.nix has been generated successfully for KCL version {kcl_version}, CLI version {cli_version}, and kubectl-kcl version {kubectl_kcl_version}.")
 
     # Write outputs to GITHUB_OUTPUT environment file
     with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
         f.write(f"KCL_VERSION={kcl_version}\n")
         f.write(f"CLI_VERSION={cli_version}\n")
+        f.write(f"KUBECTL_KCL_VERSION={kubectl_kcl_version}\n")
         f.write(f"CONTENT_CHANGED={str(content_changed).lower()}\n")
         f.write("FLAKE_CONTENT<<EOF\n")
         f.write(new_content)
@@ -71,4 +78,3 @@ def generate_flake():
 
 if __name__ == "__main__":
     generate_flake()
-

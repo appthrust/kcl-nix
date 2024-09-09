@@ -68,10 +68,37 @@
           '';
         };
 
+        getArchKubectlKcl = system:
+          if system == "x86_64-linux" then "linux-amd64"
+          else if system == "aarch64-linux" then "linux-arm64"
+          else if system == "x86_64-darwin" then "macos-amd64"
+          else if system == "aarch64-darwin" then "macos-arm64"
+          else throw "Unsupported system: ${system}";
+
+        kubectl-kcl = pkgs.stdenv.mkDerivation rec {
+          pname = "kubectl-kcl";
+          version = "0.9.0";
+
+          src = pkgs.fetchurl {
+            url = "https://github.com/kcl-lang/kubectl-kcl/releases/download/v${version}/kubectl-kcl-${getArchKubectlKcl system}.tgz";
+            sha256 = {
+              x86_64-linux = "1242dvx9ph52yxq988n0fvsbm9wpchi4pwpwj2zbscw1hgy0apq8";
+              aarch64-linux = "1d0yby7niw7npp5v5f91q20g2z4flnzkp6ydhc0sjwls3lwrj8g9";
+              x86_64-darwin = "1qyrmfwabz0aa3bavjrijmq21gk1marks6b1k2vg1vy68z68pll7";
+              aarch64-darwin = "1vz529yi5dz0wi0ymbg3q52ixqdfzv9czk8iwp94q5ffjqcvdf9j";
+            }.${system};
+          };
+
+          installPhase = ''
+            mkdir -p $out/bin
+            cp bin/kubectl-kcl $out/bin/
+          '';
+        };
+
       in
       {
         default = {
-          inherit cli language-server;
+          inherit cli language-server kubectl-kcl;
         };
       }
     );

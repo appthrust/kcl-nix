@@ -1,6 +1,5 @@
 # KCL Nix Flake
-
-This repository provides a Nix flake for the KCL (Kubernetes Configuration Language) toolchain, including the KCL CLI and KCL Language Server.
+This repository provides a Nix flake for the KCL (Kubernetes Configuration Language) toolchain, including the KCL CLI, KCL Language Server, and kubectl-kcl plugin.
 
 ## Features
 
@@ -36,6 +35,7 @@ To use this flake in your project, add it to your `flake.nix` inputs:
           buildInputs = [
             kcl.cli
             kcl.language-server
+            kcl.kubectl-kcl
           ];
         };
       }
@@ -53,6 +53,7 @@ nix develop
 
 - `kcl`: The KCL Command Line Interface
 - `kcl-language-server`: The KCL Language Server
+- `kubectl-kcl`: The KCL kubectl plugin
 
 ## Automated Updates
 
