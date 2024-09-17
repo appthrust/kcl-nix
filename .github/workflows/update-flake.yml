@@ -5,6 +5,10 @@ on:
     - cron: "0 0 * * *" # 毎日 UTC 00:00 (日本時間 09:00) に実行
   workflow_dispatch: # 手動トリガーも可能
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-flake:
     runs-on: ubuntu-latest
