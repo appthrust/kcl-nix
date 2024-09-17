@@ -23,15 +23,15 @@
 
         cli = pkgs.stdenv.mkDerivation rec {
           pname = "kcl-cli";
-          version = "0.10.0-rc.1";
+          version = "0.10.0";
 
           src = pkgs.fetchurl {
             url = "https://github.com/kcl-lang/cli/releases/download/v${version}/kcl-v${version}-${getArch system}.tar.gz";
             sha256 = {
-              x86_64-linux = "1lbmkiy3bnssp6sadpdy0bwydnlyy00ks884ba9rwadc7yrybrqv";
-              aarch64-linux = "1mh3zsvyymap20vyfwh4vcygshykc7vfb13125357kv53l5hprgp";
-              x86_64-darwin = "0a97zd56n1z7rp6bcfghxc44m5yjigf2pj3wx8npllifh191l0vg";
-              aarch64-darwin = "1j1dhvidfmn9p2x1njw0c9ns5kq8cadfrrpn8vm2yvy7k20wfzsa";
+              x86_64-linux = "16pg6h7hzr8ym2fzxvx2ifdylw7zwh3gb0gaxwgimy6ym08xydkg";
+              aarch64-linux = "10jqpjpr1c157j57lkjdazlz44grmb1nbyx8jy0p8bh4ashdxm4i";
+              x86_64-darwin = "0mkf18kjnzym4fv5xz9ag1b0kj972kyxf2q9iawblqvw0gv0mdy1";
+              aarch64-darwin = "00jyhy5l69hzdxyidknl2bmhyv1i5pj0n6dv0kihgamad8318fjq";
             }.${system};
           };
 
@@ -50,15 +50,15 @@
 
         language-server = pkgs.stdenv.mkDerivation rec {
           pname = "kcl-language-server";
-          version = "0.10.0-rc.1";
+          version = "0.10.0";
 
           src = pkgs.fetchurl {
             url = "https://github.com/kcl-lang/kcl/releases/download/v${version}/kclvm-v${version}-${getArch system}.tar.gz";
             sha256 = {
-              x86_64-linux = "1m0yv55h12sz85f1z16qalxi9pfax34335phxlfapjbb9gvpvmls";
-              aarch64-linux = "01xr7cjjmhhaa3ypd0kr7495l8bl8iikvpjl30j9fryirnqcr3gf";
-              x86_64-darwin = "0pyr61gl97m2n3fypjq8vqj7s8z0jkgwmsrp1dpchmhl71156j6n";
-              aarch64-darwin = "1x9wjqbv5asrwkzk3rc9isfsvdsw92ryiz02bpa63c119c7j05a2";
+              x86_64-linux = "17yn98dy28ayappgfplkvpf73aj96hzk3p4x66rsr7x37rv3j4vx";
+              aarch64-linux = "1wd5wigxq6w16hy88cqn1abg8wk5gnmiccfq4ckdwr3z3vmgxpcp";
+              x86_64-darwin = "1dn6wlr48c78a5f9h1wjg0ww533k9mxmz6zi5xkp3dy0is75cx6m";
+              aarch64-darwin = "1vsx8lr3nrwl5zrrdrn3y62m8sp1cgbpjl2smj3cmfjaijsx7kmy";
             }.${system};
           };
 
