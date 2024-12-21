@@ -23,15 +23,15 @@
 
         cli = pkgs.stdenv.mkDerivation rec {
           pname = "kcl-cli";
-          version = "0.11.0-alpha.1";
+          version = "0.11.0";
 
           src = pkgs.fetchurl {
             url = "https://github.com/kcl-lang/cli/releases/download/v${version}/kcl-v${version}-${getArch system}.tar.gz";
             sha256 = {
-              x86_64-linux = "0542dl7h705sqddy4fmv2865r2mmnkmxwpw48173bjjwq1cramiy";
-              aarch64-linux = "0a3vyfqa588yysqhpa75zgkxa5c11r0wxds5m107f7b4p143s0wn";
-              x86_64-darwin = "10j04sjivx6b4b219wdy0qcnn1vv4r7xppw9jmyyikhfv04n5rvs";
-              aarch64-darwin = "0cvridgvqvr7dldwfyfjk2q0psjwb4d4r2qfnajzinmhiq4snk9v";
+              x86_64-linux = "0xagsx75rp5ar880h7k81w068587v8cnqpcs7s17zr7im4zbzsr5";
+              aarch64-linux = "1bzz3va536mb857g4939i56gcgm0lkq7fayjzrwz7mhdq8zngir3";
+              x86_64-darwin = "0fwvnjc9fwdc1w07g1k3jb5r7hr646zh6gm9nhxx7hz687cckaf4";
+              aarch64-darwin = "1dqi5fxhi8lw4yx10h2l3kjxzslvc5xijkcvvfs9p7gzysxn4lgx";
             }.${system};
           };
 
