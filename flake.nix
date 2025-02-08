@@ -50,15 +50,15 @@
 
         language-server = pkgs.stdenv.mkDerivation rec {
           pname = "kcl-language-server";
-          version = "0.11.0";
+          version = "0.11.1";
 
           src = pkgs.fetchurl {
             url = "https://github.com/kcl-lang/kcl/releases/download/v${version}/kclvm-v${version}-${getArch system}.tar.gz";
             sha256 = {
-              x86_64-linux = "1j1xbjjl30x1aq6na7gck4kdzscgqb17wza4k241l8k5swlgg0lm";
-              aarch64-linux = "0vcw3hr15yvsbsc0j2kfss8nxzd78c9hdpfljqav7d2vkkhdjnp9";
-              x86_64-darwin = "0vfcj2030873rw7lala22q85rydalj750nx6jlbri8rm5czmh7zr";
-              aarch64-darwin = "0m8bgqas8f0aywhrbwmlfznmhij088jhnj0h5d2pk8wp5ay5hj4c";
+              x86_64-linux = "05clvf25qdrkyhjqwvq46b7sa2yh6d168b6w7j650knjnf1dg2q1";
+              aarch64-linux = "087sqwrm3q9k4xbj8jfq0m7xdb8bf5r7nhbqfckcqcj7i68w7zrs";
+              x86_64-darwin = "1v94x7wc3gfzanb8s6phvj8hvfimw0l77c2dl1br96qwmb9n6dil";
+              aarch64-darwin = "1vim7bn0wfv5l4vsi5zzvcqr6l9ys1yrrdydiysb7z1ssmfmaksg";
             }.${system};
           };
 
